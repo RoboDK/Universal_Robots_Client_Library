@@ -158,6 +158,36 @@ public:
    */
   bool sendInputDoubleRegister(uint32_t register_id, double value);
 
+  /*!
+   * \brief Creates a package to request setting a new value for any register
+   *
+   * \param register_name The text name of the register that should be changed
+   * \param value The new boolean value
+   *
+   * \returns Success of the package creation
+   */
+  bool sendBooleanRegister(const std::string& register_name, bool value);
+
+  /*!
+   * \brief Creates a package to request setting a new value for any register
+   *
+   * \param register_name The text name of the register that should be changed
+   * \param value The new integer value
+   *
+   * \returns Success of the package creation
+   */
+  bool sendIntegerRegister(const std::string& register_name, int32_t value);
+
+  /*!
+   * \brief Creates a package to request setting a new value for any register
+   *
+   * \param register_name The text name of the register that should be changed
+   * \param value The new double value
+   *
+   * \returns Success of the package creation
+   */
+  bool sendDoubleRegister(const std::string& register_name, double value);
+
 private:
   uint8_t pinToMask(uint8_t pin);
   comm::URStream<RTDEPackage>* stream_;

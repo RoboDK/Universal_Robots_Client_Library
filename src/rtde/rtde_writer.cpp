@@ -335,5 +335,41 @@ bool RTDEWriter::sendInputDoubleRegister(uint32_t register_id, double value)
   return success;
 }
 
+bool RTDEWriter::sendBooleanRegister(const std::string& register_name, bool value)
+{
+  if (package_.setData(register_name, value))
+  {
+    if (queue_.tryEnqueue(std::unique_ptr<DataPackage>(new DataPackage(package_))))
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool RTDEWriter::sendIntegerRegister(const std::string& register_name, int32_t value)
+{
+  if (package_.setData(register_name, value))
+  {
+    if (queue_.tryEnqueue(std::unique_ptr<DataPackage>(new DataPackage(package_))))
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool RTDEWriter::sendDoubleRegister(const std::string& register_name, double value)
+{
+  if (package_.setData(register_name, value))
+  {
+    if (queue_.tryEnqueue(std::unique_ptr<DataPackage>(new DataPackage(package_))))
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 }  // namespace rtde_interface
 }  // namespace urcl
