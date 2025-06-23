@@ -64,6 +64,15 @@ public:
   ScriptCommandInterface(uint32_t port);
 
   /*!
+   * \brief Set the tool center point (TCP).
+   *
+   * \param frame Tool frame
+   *
+   * \returns True, if the write was performed successfully, false otherwise.
+   */
+  bool setTcp(const vector6d_t* frame);
+
+  /*!
    * \brief Zero the force torque sensor
    *
    * \returns True, if the write was performed successfully, false otherwise.
@@ -184,6 +193,7 @@ private:
     END_FORCE_MODE = 4,      ///< End force mode
     START_TOOL_CONTACT = 5,  ///< Start detecting tool contact
     END_TOOL_CONTACT = 6,    ///< End detecting tool contact
+    SET_TCP = 7,             ///< Set TCP
   };
 
   bool client_connected_;

@@ -561,6 +561,15 @@ public:
                                const RobotReceiveTimeout& robot_receive_timeout = RobotReceiveTimeout::millisec(200));
 
   /*!
+   * \brief Set the tool center point (TCP).
+   *
+   * \param frame Tool frame
+   *
+   * \returns True, if the write was performed successfully, false otherwise.
+   */
+  bool setTcp(const vector6d_t& frame);
+
+  /*!
    * \brief Zero the force torque sensor (only availbe on e-Series). Note:  It requires the external control script to
    * be running or the robot to be in headless mode
    *

@@ -246,6 +246,31 @@ bool UrDriver::writeFreedriveControlMessage(const control::FreedriveControlMessa
   return reverse_interface_->writeFreedriveControlMessage(freedrive_action, robot_receive_timeout);
 }
 
+bool UrDriver::setTcp(const vector6d_t& frame)
+{
+  if (script_command_interface_->clientConnected())
+  {
+    return script_command_interface_->setTcp(&frame);
+  }
+  else
+  {
+    URCL_LOG_WARN("Script command interface is not running. Falling back to sending plain script code. On e-Series "
+                  "robots this will only work, if the robot is in remote_control mode.");
+    std::stringstream cmd;
+    cmd.imbue(std::locale::classic());  // Make sure, decimal divider is actually '.'
+    cmd << "sec setup():" << std::endl
+        << " set_tcp(p["
+        << frame[0] << ", "
+        << frame[1] << ", "
+        << frame[2] << ", "
+        << frame[3] << ", "
+        << frame[4] << ", "
+        << frame[5] << "])" << std::endl
+        << "end";
+    return sendScript(cmd.str());
+  }
+}
+
 bool UrDriver::zeroFTSensor()
 {
   if (getVersion().major < 5)
